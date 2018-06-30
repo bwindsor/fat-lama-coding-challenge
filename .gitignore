@@ -1,0 +1,6 @@
+venv
+*.bin
+*.egg-info
+SQLiteDatabaseBrowserPortable
+.idea
+__pycache__ 

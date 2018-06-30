@@ -1,5 +1,5 @@
 import pytest
-from fatllama.search import app
+from fatlama.search import app
 
 
 @pytest.fixture

@@ -24,12 +24,12 @@ Or use the [slim version](https://github.com/eyaler/word2vec-slim/blob/master/Go
 2. Setup a new virtual environment `virtualenv venv`
 3. Activate the virtual environment `venv\Scripts\activate`
 4. Install development dependencies `pip install -r requirements.txt`
-5. Install the `fatllama` package (and dependencies) as editable `pip install -e .`
+5. Install the `fatlama` package (and dependencies) as editable `pip install -e .`
 
 ## Starting the search server
 Just run
-`python fatllama/search`
+`python fatlama/search`
 
 ## Starting the word embedding server
 Run
-`python fatllama/word_embedding`
+`python fatlama/word_embedding`

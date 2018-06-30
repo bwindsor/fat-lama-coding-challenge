@@ -1,1 +1,1 @@
-from fatllama.word_embedding import WordEmbedder
+from fatlama.word_embedding import WordEmbedder

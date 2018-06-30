@@ -1,5 +1,5 @@
 import gensim
-from fatllama.config import word2vec_model_path
+from fatlama.config import word2vec_model_path
 
 
 class WordEmbedder():

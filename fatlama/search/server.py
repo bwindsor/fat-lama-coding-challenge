@@ -1,6 +1,6 @@
 from flask import Flask, request, abort, jsonify
-from fatllama.search import Indexer, DbClient, QueryEmbedder, WordEmbeddingClient, DirectWordEmbeddingClient, Searcher
-from fatllama.config import sqlite_db_path, word_embedding_server_port, word2vec_vector_length
+from fatlama.search import Indexer, DbClient, QueryEmbedder, WordEmbeddingClient, DirectWordEmbeddingClient, Searcher
+from fatlama.config import sqlite_db_path, word_embedding_server_port, word2vec_vector_length
 
 app = Flask(__name__)
 

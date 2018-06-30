@@ -1,4 +1,4 @@
-from fatllama.word_embedding import WordEmbedder
+from fatlama.word_embedding import WordEmbedder
 from flask import Flask
 from flask import jsonify
 app = Flask(__name__)

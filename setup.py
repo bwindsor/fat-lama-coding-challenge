@@ -1,9 +1,9 @@
 from distutils.core import setup
 
 setup(
-    name='fatllama',
+    name='fatlama',
     version='0.1',
-    packages=['fatllama'],
+    packages=['fatlama'],
     url='',
     license='',
     author='Ben Windsor',

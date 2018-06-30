@@ -1,0 +1,1 @@
+from fatllama import WordEmbedder

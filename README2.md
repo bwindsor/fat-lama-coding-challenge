@@ -4,7 +4,7 @@ To prevent this, I'm going to index the database by calculating the embedding ve
 
 I'm also going to combine the geographical location into the embedding as two extra dimensions (lat and lon), but scaled by some amount determined by how much weighting I want to give to geographic location.
 
-I'll then store these vectors in an efficient multidimensional spacial index call [Annoy](https://github.com/spotify/annoy), open-sourced by Spotify. This allows very efficient approximate nearest neighbours queries even for large numbers of points.
+I'll then store these vectors in an efficient multidimensional spacial index call [Annoy](https://github.com/spotify/annoy), open-sourced by Spotify. This allows very efficient approximate nearest neighbours queries even for large numbers of points. Unfortunately every time a point is added to the index, the index needs rebuilding. It should be possible to modify the source code (or write my own equivalent using a KD-tree) which allows incremental updates without rebuilding. Within the time constrains of this example project I have left it as it is though.
 
 When the user enters a query I will calculate the embedding vector for each word in their query (ignoring anything not in the GoogleNews embeddings dataset - this means numbers, some abbreviations, and stop words will be ignored).
 

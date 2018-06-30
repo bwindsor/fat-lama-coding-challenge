@@ -11,10 +11,8 @@ class Indexer:
 
     def index_vectors_and_data(self, vectors, data):
         assert(len(vectors) == len(data))
-        for v in vectors:
-            self.vectors.append(v)
-        for d in data:
-            self.labels.append(d)
+        self.vectors.extend(vectors)
+        self.labels.extend(data)
         self.index = self._build_index(self.vectors)
 
     def _build_index(self, vectors):
@@ -32,3 +30,15 @@ class Indexer:
 
         # Maps the distance range (0,2) onto similarity (1,0)
         return [(self.labels[ids[i]], 1 - distances[i] / 2) for i in range(len(ids))]
+
+    @staticmethod
+    def create_from_database(db_client, query_embedder, vector_length):
+        indexer = Indexer(vector_length)
+        vectors = []
+        data = []
+        for row in db_client.get_all_records():
+            vectors_for_row = query_embedder.get_vectors_for_query(row['item_name'], row['lat'], row['lng'])
+            vectors.extend(vectors_for_row)
+            data.extend([row['id']]*len(vectors_for_row))
+        indexer.index_vectors_and_data(vectors, data)
+        return indexer

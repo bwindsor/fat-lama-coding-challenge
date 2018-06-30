@@ -12,6 +12,8 @@ Because the word embedding model takes a while to load I made it a separate serv
 
 For each word I'll then look up the most relevant results in the database, and then combine these in some form to come up with what the most relevant results are overall for that phrase.
 
+I wanted an id field in the database, so I added it.
+
 I've decided to develop in Python because it's a language which I know well.
 
 ## Setup

@@ -1,5 +1,17 @@
-from flask import Flask, request, abort
+from flask import Flask, request, abort, jsonify
+from fatllama.search import Indexer, DbClient, QueryEmbedder, WordEmbeddingClient, DirectWordEmbeddingClient, Searcher
+from fatllama.config import sqlite_db_path, word_embedding_server_port, word2vec_vector_length
+
 app = Flask(__name__)
+
+# word_embedding_client = WordEmbeddingClient("http://localhost:" + str(word_embedding_server_port))
+word_embedding_client = DirectWordEmbeddingClient()
+query_embedder = QueryEmbedder(word_embedding_client)
+
+with DbClient(sqlite_db_path) as db_client:
+    indexer = Indexer.create_from_database(db_client, query_embedder, word2vec_vector_length + 3)
+
+searcher = Searcher(query_embedder, indexer)
 
 
 @app.route('/search')
@@ -8,7 +20,12 @@ def search_api():
     lat = get_float_query_arg('lat')
     lng = get_float_query_arg('lng')
 
-    return "Welcome to /search"
+    results = searcher.get_top_results(search_term, lat, lng, 20)
+    ids = [results[i][0] for i in range(min(len(results), 20))]
+    with DbClient(sqlite_db_path) as sqlite_db_client:
+        results = sqlite_db_client.get_items_by_id(ids)
+    return jsonify(results)
+
 
 def get_float_query_arg(arg_name):
     result = get_query_arg(arg_name)
@@ -17,6 +34,7 @@ def get_float_query_arg(arg_name):
     except:
         abort(400)
     return result
+
 
 def get_query_arg(arg_name):
     result = request.args.get(arg_name)

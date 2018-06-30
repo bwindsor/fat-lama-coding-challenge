@@ -1,3 +1,6 @@
+from collections import OrderedDict
+
+
 class Searcher:
     def __init__(self, query_embedder, indexer):
         self.query_embedder = query_embedder
@@ -12,12 +15,22 @@ class Searcher:
             return []
 
         # Match search vectors to nearest vectors from the database
-        top_results = [self.indexer.most_similar(v, num_results*2) for v in search_vectors]
+        # This just joins everything into a single list showing similarities
+        # between any word in the current sentence and other items
+        results_to_query = round(num_results * 1.5)
+        top_results = []
+        while len(top_results) < num_results and results_to_query < num_results*10:
+            top_results = []
+            for v in search_vectors:
+                top_results.extend(self.indexer.most_similar(v, results_to_query))
 
-        # Top results is now [ [matches for word1], [matches for word2] ]
-        # Combine results from different words
-        final_result = []
-        for v in top_results:
-            final_result.extend(v)
+            # Sort by similarity, least similar first
+            top_results.sort(key=lambda x: x[0])
+            # Convert to dict - this keeps the first value of each key (id) and discards others
+            top_results = OrderedDict(top_results)
+            results_to_query *= 2
 
-        return final_result
+        # Get the keys, least similar will be first
+        top_ids = list(top_results)
+        top_ids.reverse() # Now most similar is first
+        return top_ids[:num_results]  # Trim

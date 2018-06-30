@@ -20,8 +20,7 @@ def search_api():
     lat = get_float_query_arg('lat')
     lng = get_float_query_arg('lng')
 
-    results = searcher.get_top_results(search_term, lat, lng, 20)
-    ids = [results[i][0] for i in range(min(len(results), 20))]
+    ids = searcher.get_top_results(search_term, lat, lng, 20)
     with DbClient(sqlite_db_path) as sqlite_db_client:
         results = sqlite_db_client.get_items_by_id(ids)
     return jsonify(results)

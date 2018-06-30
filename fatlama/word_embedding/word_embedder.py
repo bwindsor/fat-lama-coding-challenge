@@ -11,7 +11,7 @@ class WordEmbedder():
 
     def get_vector(self, word):
         if self.has_word(word):
-            return self.model.wv[word]
+            return [float(x) for x in self.model.wv[word]]
         else:
             return None
 

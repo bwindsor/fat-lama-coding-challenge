@@ -9,7 +9,7 @@ class QueryEmbedder:
         vectors = self._get_vectors_for_sentence(sentence)
         for v in vectors:
             xyz = [math.sin(lat), math.cos(lat)*math.cos(lng), math.cos(lat)*math.sin(lng)]
-            weighting = 0.1
+            weighting = 1
             v.extend([x * weighting for x in xyz])
             magnitude = sum([x**2 for x in v])**0.5
             for i in range(len(v)):

@@ -20,6 +20,4 @@ class DirectWordEmbeddingClient:
 
     def get_vector_for_word(self, word):
         vector = self.word_embedder.get_vector(word)
-        if vector is not None:
-            vector = [float(x) for x in vector]
         return vector

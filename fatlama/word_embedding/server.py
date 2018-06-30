@@ -13,4 +13,4 @@ def vector_api(word):
     if vector is None:
         return "", 404
     else:
-        return jsonify([float(x) for x in vector]), 200
+        return jsonify(vector), 200

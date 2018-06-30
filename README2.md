@@ -8,6 +8,8 @@ I'll then store these vectors in an efficient multidimensional spacial index cal
 
 When the user enters a query I will calculate the embedding vector for each word in their query (ignoring anything not in the GoogleNews embeddings dataset - this means numbers, some abbreviations, and stop words will be ignored).
 
+Because the word embedding model takes a while to load I made it a separate service with the method `GET /vector/:word`, which returns the vector for that work, or nothing if the word is not present.
+
 For each word I'll then look up the most relevant results in the database, and then combine these in some form to come up with what the most relevant results are overall for that phrase.
 
 I've decided to develop in Python because it's a language which I know well.
@@ -15,6 +17,8 @@ I've decided to develop in Python because it's a language which I know well.
 ## Setup
 This code is written using Python 3.6.
 1. You will need to [download the pre-trained GoogleNews word embeddings](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit). Something else could be used but this is what I picked.
+Or use the [slim version](https://github.com/eyaler/word2vec-slim/blob/master/GoogleNews-vectors-negative300-SLIM.bin.gz)
+2. Unzip the model
 2. Setup a new virtual environment `virtualenv venv`
 3. Activate the virtual environment `venv\Scripts\activate`
 4. Install development dependencies `pip install -r requirements.txt`
@@ -22,4 +26,8 @@ This code is written using Python 3.6.
 
 ## Starting the search server
 Just run
-`python fatllama`
+`python fatllama/search`
+
+## Starting the word embedding server
+Run
+`python fatllama/word_embedding`

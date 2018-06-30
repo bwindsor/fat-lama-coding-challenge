@@ -1,4 +1,4 @@
-from fatllama import Indexer
+from fatllama.search import Indexer
 import pytest
 
 

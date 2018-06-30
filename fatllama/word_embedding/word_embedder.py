@@ -1,4 +1,5 @@
 import gensim
+from fatllama.config import word2vec_model_path
 
 
 class WordEmbedder():
@@ -14,3 +15,6 @@ class WordEmbedder():
         else:
             return None
 
+    @staticmethod
+    def create_default():
+        return WordEmbedder(word2vec_model_path)

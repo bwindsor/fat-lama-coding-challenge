@@ -22,4 +22,4 @@ This code is written using Python 3.6.
 
 ## Starting the search server
 Just run
-`python server.py`
+`python fatllama`

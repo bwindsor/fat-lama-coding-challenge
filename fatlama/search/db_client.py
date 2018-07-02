@@ -1,6 +1,15 @@
 import sqlite3
 
 
+class DefaultDbClientFactory:
+    """Creates a database client for a specified database"""
+    def __init__(self, sqlite_db_file_path):
+        self.db_path = sqlite_db_file_path
+
+    def create(self):
+        return DbClient(self.db_path)
+
+
 class DbClient:
     """Connects to the provided SQLLite database"""
     def __init__(self, db_file_path):

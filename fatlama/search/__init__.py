@@ -1,4 +1,4 @@
-from .db_client import DbClient
+from .db_client import DefaultDbClientFactory
 from .indexer import Indexer
 from .searcher import Searcher
 from .word_embedding_client import WordEmbeddingClient, DirectWordEmbeddingClient

@@ -3,7 +3,7 @@ import math
 
 class QueryEmbedder:
     """Converts queries (sentence + lat + lon) into vectors"""
-    def __init__(self, word_embedding_client):
+    def __init__(self, word_embedding_client, location_weighting=1.0):
         """
         Create a QueryEmbedder
         Parameters
@@ -12,6 +12,7 @@ class QueryEmbedder:
             a word embedding vector from a single word
         """
         self.word_embedding_client = word_embedding_client
+        self.location_weighting = location_weighting
 
     def get_vectors_for_query(self, sentence, lat, lng):
         """
@@ -30,8 +31,7 @@ class QueryEmbedder:
         vectors = self._get_vectors_for_sentence(sentence)
         for v in vectors:
             xyz = [math.sin(lat), math.cos(lat)*math.cos(lng), math.cos(lat)*math.sin(lng)]
-            weighting = 1
-            v.extend([x * weighting for x in xyz])
+            v.extend([x * self.location_weighting for x in xyz])
             magnitude = sum([x**2 for x in v])**0.5
             for i in range(len(v)):
                 v[i] /= magnitude

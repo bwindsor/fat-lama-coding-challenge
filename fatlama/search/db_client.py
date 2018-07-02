@@ -39,7 +39,7 @@ class DbClient:
                      "FROM items WHERE id IN (" +
                      ",".join([str(x) for x in ids]) +
                      ")")
-        return [row for row in self.cursor.execute(sql_query)]
+        return [self._row_to_dict(row) for row in self.cursor.execute(sql_query)]
 
     def get_all_records(self):
         """

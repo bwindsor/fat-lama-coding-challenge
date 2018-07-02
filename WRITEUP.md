@@ -41,12 +41,9 @@ Any component can be swapped out or mocked for testing purposes.
 
 
 ## Starting the search server
-Just run
-`python fatlama/search`
+Run `python fatlama/search`
 
-## Starting the word embedding server
-Run
-`python fatlama/word_embedding`
+Then test a query by going to e.g. `http://localhost:5000/search?searchTerm=camera&lng=-5&lat=54.157`
 
 ## Running tests
 Run `pytest`

@@ -3,6 +3,8 @@ from fatlama.word_embedding import WordEmbedder
 
 
 class WordEmbeddingClient:
+    """Looks up word embeddings by sending HTTP requests to a
+    word embedding service hosted on another server"""
     def __init__(self, base_url):
         self.base_url = base_url
 
@@ -15,8 +17,9 @@ class WordEmbeddingClient:
 
 
 class DirectWordEmbeddingClient:
-    def __init__(self):
-        self.word_embedder = WordEmbedder.create_default()
+    """Looks up word embeddings directly from a word embedder object"""
+    def __init__(self, word_embedder):
+        self.word_embedder = word_embedder
 
     def get_vector_for_word(self, word):
         vector = self.word_embedder.get_vector(word)

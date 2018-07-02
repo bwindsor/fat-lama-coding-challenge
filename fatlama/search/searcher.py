@@ -2,11 +2,25 @@ from collections import OrderedDict
 
 
 class Searcher:
+    """Main search functionality to return results from a query"""
     def __init__(self, query_embedder, indexer):
         self.query_embedder = query_embedder
         self.indexer = indexer
 
     def get_top_results(self, search_term, lat, lon, num_results):
+        """
+
+        Parameters
+        ----------
+        search_term - string, sentence user searched for
+        lat - latitude of query
+        lon - longitude of query
+        num_results - number of results to return
+
+        Returns
+        -------
+        ids - list of item ids, sorted most likely to least likely
+        """
         # Call word embedding service to get vectors
         search_vectors = self.query_embedder.get_vectors_for_query(search_term, lat, lon)
 

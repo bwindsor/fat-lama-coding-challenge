@@ -1,10 +1,11 @@
 import pytest
-from fatlama.search import app
+from fatlama.search import Server
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def client():
-    return app.test_client()
+    server = Server.create_default()
+    return server.app.test_client()
 
 
 def test_valid_query(client):
